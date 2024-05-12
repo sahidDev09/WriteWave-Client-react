@@ -25,7 +25,7 @@ const Navbar = () => {
     <div className="flex justify-between items-center container mx-auto p-2 md:p-0">
       <div>
         <img
-          className=" md:w-56 w-40"
+          className=" md:w-56 w-32"
           src="https://i.ibb.co/Kh3jbRw/SCR-20240510-nyxu.png"
           alt=""
         />
@@ -52,7 +52,7 @@ const Navbar = () => {
       <div className=" flex items-center gap-3">
         {user ? (
           <div className=" flex items-center gap-4">
-            <div className=" w-14 h-14 rounded-full flex items-center gap-3">
+            <div className=" md:w-14 md:h-14 w-10 h-10 rounded-full flex items-center gap-3">
               <img
                 referrerPolicy="no-referrer"
                 className=" w-full h-full rounded-full border border-blue-400 p-1 object-cover"

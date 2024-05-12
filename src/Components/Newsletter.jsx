@@ -1,6 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
 
+import Swal from "sweetalert2";
+
 const Newsletter = () => {
+  const handleSubmitNews = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Thank you for subscribing to our newsletter",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
+    form.reset();
+  };
+
   return (
     <div className=" my-10 container mx-auto">
       <div className=" bg-zinc-700 md:flex rounded-md">
@@ -20,9 +38,11 @@ const Newsletter = () => {
             healthcard also about Next, vue flutter Automation. We don't spam
           </p>
           <div>
-            <form className=" flex flex-col gap-3">
+            <form onSubmit={handleSubmitNews} className=" flex flex-col gap-3">
               <input
                 type="text"
+                name="email"
+                required
                 placeholder="Email"
                 className=" w-full py-3 border px-2 rounded-md"
               />
