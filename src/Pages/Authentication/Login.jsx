@@ -7,7 +7,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoMdEye } from "react-icons/io";
 import { AuthContext } from "../../Provider/AuthProvider";
-import loginLottie from "../../../public/login_lottie.json";
+import loginLottie from "../../assets/login_lottie.json";
 import Lottie from "lottie-react";
 import OtherLogin from "./OtherLogin";
 

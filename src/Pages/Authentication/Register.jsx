@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../../Provider/AuthProvider";
-import regiLottie from "../../../public/regi_lottie.json";
+import regiLottie from "../../assets/regi_lottie.json";
 import Lottie from "lottie-react";
 
 const Register = () => {
@@ -25,7 +25,7 @@ const Register = () => {
     const { email, password, image, fullName } = data;
 
     // Password validation
-    
+
     if (password.length < 6) {
       toast.warning("Password should be at least 6 characters");
       return;
