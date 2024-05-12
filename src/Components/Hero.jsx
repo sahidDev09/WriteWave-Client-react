@@ -17,7 +17,7 @@ const Hero = () => {
         </h1>
       </div>
 
-      <div>
+      <div className=" -z-10">
         <Lottie animationData={heroAnim}></Lottie>
       </div>
     </div>
