@@ -9,13 +9,13 @@
   border-radius: 8px;
 }
 
-.strockText{
+.strockText {
   -webkit-text-stroke-width: 2px;
   color: transparent;
   -webkit-text-stroke-color: red;
 }
 
-.strockText:hover{
+.strockText:hover {
   color: red;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }

@@ -21,16 +21,16 @@ const Newsletter = () => {
   };
 
   return (
-    <div className=" mb-10 container mx-auto">
-      <div className=" bg-zinc-700 md:flex rounded-md">
+    <div className=" mb-20 container mx-auto">
+      <div className=" bg-red-400 md:flex rounded-md">
         <div className=" flex justify-center items-center">
           <img
             className=" w-[500px] p-8"
-            src="https://i.ibb.co/FzHZgQ5/170.png"
+            src="https://i.ibb.co/0J63rkh/170-1.png"
             alt=""
           />
         </div>
-        <div className=" bg-slate-200 w-full flex flex-col gap-3 justify-center p-10    ">
+        <div className=" bg-slate-200 w-full flex flex-col gap-4 justify-center p-14 rounded-r-md">
           <h1 className=" text-4xl font-bold">
             Loved this post? Join our Newsletter 🚀
           </h1>
