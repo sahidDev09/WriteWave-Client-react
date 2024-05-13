@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import { Helmet } from "react-helmet";
+import axios from "axios";
 
 const BlogDetails = () => {
   const blogsDetails = useLoaderData();
@@ -16,8 +18,33 @@ const BlogDetails = () => {
     long_description,
   } = blogsDetails;
 
+  const handleComment = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const comments = form.comments.value;
+    const blogID = _id;
+    const owner_name = user?.displayName;
+    const owner_prfile = user?.photoURL;
+
+    const commentsData = { comments, blogID, owner_name, owner_prfile };
+
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/comments`,
+        commentsData
+      );
+      alert("hi added successfully ");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className=" container mx-auto mt-14 p-2 md:p-0">
+      <Helmet>
+        <title>WriteWave | Blog_Details</title>
+      </Helmet>
       <h1 className=" md:text-4xl font-bold bg-blue-100 p-2 rounded-md">
         {title}
       </h1>
@@ -40,17 +67,18 @@ const BlogDetails = () => {
                 </div>
               </div>
               <div className=" flex flex-col my-4">
-                <form className=" flex flex-col mb-10">
+                <form onSubmit={handleComment} className=" flex flex-col mb-10">
                   <label htmlFor="">Message</label>
                   <textarea
                     name="comments"
+                    required
                     className=" border-2 h-full"
                     rows={4}
                     placeholder=" Write your valueable comments..."></textarea>
                   <input
                     type="submit"
                     value="Send comment"
-                    className=" bg-blue-500 items-center flex p-3 w-fit my-2 text-white rounded-md"
+                    className=" hover:bg-blue-700 cursor-pointer bg-blue-500 items-center flex p-3 w-fit my-2 text-white rounded-md"
                   />
                 </form>
               </div>
