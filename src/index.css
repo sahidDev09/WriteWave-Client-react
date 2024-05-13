@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active {
+  background-color: #3c82f6;
+  padding: 10px;
+  color: #ffffff;
+  border-radius: 8px;
+}
+
+.strockText {
+  -webkit-text-stroke-width: 2px;
+  color: transparent;
+  -webkit-text-stroke-color: red;
+}
+
+.strockText:hover {
+  color: red;
+  transition: all 0.5s ease-in-out;
+}
