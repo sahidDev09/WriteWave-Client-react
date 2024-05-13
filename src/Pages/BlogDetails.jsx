@@ -3,6 +3,8 @@ import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Helmet } from "react-helmet";
 import axios from "axios";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const BlogDetails = () => {
   const blogsDetails = useLoaderData();
@@ -18,12 +20,21 @@ const BlogDetails = () => {
     long_description,
     writerEmail,
     writerName,
+    writerProfile,
   } = blogsDetails;
 
   const handleComment = async (e) => {
     e.preventDefault();
-
     const form = e.target;
+
+    if (user?.email === writerEmail) {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You can not comment your own blog!",
+      });
+    }
+
     const comments = form.comments.value;
     const blogID = _id;
     const owner_name = user?.displayName;
@@ -36,7 +47,12 @@ const BlogDetails = () => {
         `${import.meta.env.VITE_API_URL}/comments`,
         commentsData
       );
-      alert(data + "hi added successfully ");
+      Swal.fire({
+        icon: "success",
+        title: "Comments send",
+        text: "Your comment is active",
+      });
+      form.reset();
     } catch (error) {
       console.log(error);
     }
@@ -96,20 +112,20 @@ const BlogDetails = () => {
             <div className=" flex gap-4 items-center bg-slate-200 p-3 rounded-xl">
               <img
                 className=" w-16 h-16 rounded-2xl"
-                src={user?.photoURL}
+                src={writerProfile}
                 alt=""
               />
               <div>
                 <h1 className=" font-semibold">
                   Name :
                   <span className=" text-blue-500 font-normal">
-                    {user?.displayName}
+                    {writerName}
                   </span>
                 </h1>
                 <h1 className=" font-semibold">
                   Email :
                   <span className=" text-gray-500 font-normal">
-                    {user?.email}
+                    {writerEmail}
                   </span>
                 </h1>
               </div>
@@ -138,6 +154,14 @@ const BlogDetails = () => {
                   </span>
                 </h1>
               </div>
+
+              {/* add conditional button */}
+
+              {user?.email === writerEmail && (
+                <button className=" w-full bg-orange-500 hover:bg-orange-700 p-4 text-white rounded-md my-10">
+                  Update Blog
+                </button>
+              )}
             </div>
           </div>
         </div>
