@@ -30,7 +30,7 @@ const RecentsCards = () => {
         recent blog section today!
       </p>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {blogs.map((blog, index) => (
+        {blogs.slice(0, 6).map((blog, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 50 }}
@@ -40,7 +40,9 @@ const RecentsCards = () => {
           </motion.div>
         ))}
       </div>
-      <button className=" bg-blue-500 p-2 text-white rounded-md mt-8 flex mx-auto">See all Blogs</button>
+      <button className=" bg-blue-500 p-2 text-white rounded-md mt-8 flex mx-auto">
+        See all Blogs
+      </button>
     </motion.div>
   );
 };

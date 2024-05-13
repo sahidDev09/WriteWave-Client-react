@@ -16,6 +16,8 @@ const BlogDetails = () => {
     short_description,
     imageurl,
     long_description,
+    writerEmail,
+    writerName,
   } = blogsDetails;
 
   const handleComment = async (e) => {
@@ -34,7 +36,7 @@ const BlogDetails = () => {
         `${import.meta.env.VITE_API_URL}/comments`,
         commentsData
       );
-      alert("hi added successfully ");
+      alert(data + "hi added successfully ");
     } catch (error) {
       console.log(error);
     }

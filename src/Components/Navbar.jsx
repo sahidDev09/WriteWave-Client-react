@@ -32,19 +32,19 @@ const Navbar = () => {
       </div>
       <div className="mobile-nav lg:static absolute lg:bg-transparent bg-gray-200 md:min-h-fit min-h-[50vh]  left-0 top-[-100%] w-full lg:w-auto items-center lg:px-0 px-5 pt-10 lg:p-0">
         <ul className="flex lg:flex-row flex-col lg:gap-8 gap-8 text-md ">
-          <li>
+          <li className=" hover:text-blue-400">
             <NavLink to="/">Home</NavLink>
           </li>
-          <li>
-            <NavLink to="/addblog">Add Blog</NavLink>
+          <li className=" hover:text-blue-400">
+            <NavLink to="/addBlogs">Add Blog</NavLink>
           </li>
-          <li>
+          <li className=" hover:text-blue-400">
             <NavLink to="/allblogs">All Blogs</NavLink>
           </li>
-          <li>
+          <li className=" hover:text-blue-400">
             <NavLink to="/featuredblogs">Featured Blogs</NavLink>
           </li>
-          <li>
+          <li className=" hover:text-blue-400" >
             <NavLink to="/wishlist">Wishlist</NavLink>
           </li>
         </ul>
