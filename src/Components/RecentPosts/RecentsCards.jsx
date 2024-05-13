@@ -1,9 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
-import RecentSingleCard from "./RecentSingleCard";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+import SingleAllBlogs from "../../Pages/Blogs/SingleAllBlogs";
+import { Link } from "react-router-dom";
 
 const RecentsCards = () => {
   const [blogs, setBlogs] = useState([]);
@@ -36,13 +38,15 @@ const RecentsCards = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}>
-            <RecentSingleCard blogs={blog}></RecentSingleCard>
+            <SingleAllBlogs blogs={blog}></SingleAllBlogs>
           </motion.div>
         ))}
       </div>
-      <button className=" bg-blue-500 p-2 text-white rounded-md mt-8 flex mx-auto">
-        See all Blogs
-      </button>
+      <Link to="/allblogs">
+        <button className=" bg-blue-500 p-2 text-white rounded-md mt-8 flex mx-auto">
+          See all Blogs
+        </button>
+      </Link>
     </motion.div>
   );
 };

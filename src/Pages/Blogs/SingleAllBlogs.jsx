@@ -1,10 +1,52 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { motion } from "framer-motion";
+
 import { BiSolidCategory } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import axios from "axios";
+import Swal from "sweetalert2";
 
-const RecentSingleCard = ({ blogs }) => {
+const SingleAllBlogs = ({ blogs }) => {
+  const { user } = useContext(AuthContext);
   const { _id, title, category, short_description, imageurl } = blogs;
+
+  const handleWishList = async () => {
+    const wishtitle = title;
+    const wishCat = category;
+    const wishShort_des = short_description;
+    const wishImg = imageurl;
+    const email = user?.email;
+
+    const allwishData = {
+      wishtitle,
+      wishCat,
+      wishShort_des,
+      wishImg,
+      email,
+    };
+
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/wishlist`,
+        allwishData
+      );
+      Swal.fire({
+        icon: "success",
+        title: "Added in wishlist",
+        text: "Your selected card added in the wish list",
+        
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You data not uploaded!",
+      });
+    }
+  };
 
   return (
     <div className="w-full overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 border border-blue-300">
@@ -39,7 +81,7 @@ const RecentSingleCard = ({ blogs }) => {
             </motion.button>
           </Link>
 
-          <Link className="w-full">
+          <button onClick={handleWishList} className="w-full">
             <motion.button
               whileHover={{
                 scale: 1.05,
@@ -47,14 +89,14 @@ const RecentSingleCard = ({ blogs }) => {
                 color: "#ff9900",
               }}
               whileTap={{ scale: 0.95 }}
-              className="py-3 border-2 border-blue-500 w-full rounded-md hover:border-orange-500 hover:bg-orange-500 transition-all hover:text-white">
+              className="py-[10px] border-2 border-blue-500 w-full rounded-md hover:border-orange-500 hover:bg-orange-500 transition-all hover:text-white">
               Add Wishlist
             </motion.button>
-          </Link>
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default RecentSingleCard;
+export default SingleAllBlogs;

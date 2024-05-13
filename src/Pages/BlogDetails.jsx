@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Helmet } from "react-helmet";
 import axios from "axios";
-import { toast } from "react-toastify";
+
 import Swal from "sweetalert2";
 
 const BlogDetails = () => {
