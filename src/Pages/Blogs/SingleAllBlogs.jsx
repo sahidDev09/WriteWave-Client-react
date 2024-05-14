@@ -19,6 +19,7 @@ const SingleAllBlogs = ({ blogs }) => {
     const wishShort_des = short_description;
     const wishImg = imageurl;
     const email = user?.email;
+    const wishId  = _id;
 
     const allwishData = {
       wishtitle,
@@ -26,6 +27,7 @@ const SingleAllBlogs = ({ blogs }) => {
       wishShort_des,
       wishImg,
       email,
+      wishId
     };
 
     try {

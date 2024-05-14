@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const WishlistTable = ({ wishlist }) => {
-  const { wishImg, wishShort_des, wishCat, wishtitle } = wishlist;
+  const { wishId, wishImg, wishShort_des, wishCat, wishtitle } = wishlist;
 
   return (
     <div className=" m-2 md:m-0">
@@ -28,9 +29,11 @@ const WishlistTable = ({ wishlist }) => {
           </div>
         </div>
         <div className=" md:flex-col flex gap-3">
-          <button className=" bg-blue-500 p-3 rounded-xl">
-            <FaEye className=" text-4xl text-white" />
-          </button>
+          <Link to={`/blogs/${wishId}`}>
+            <button className=" bg-blue-500 p-3 rounded-xl">
+              <FaEye className=" text-4xl text-white" />
+            </button>
+          </Link>
           <button className=" bg-red-500 p-3 rounded-xl">
             <MdDelete className=" text-4xl text-white" />
           </button>
