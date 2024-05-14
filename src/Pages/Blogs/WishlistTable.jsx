@@ -1,10 +1,45 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
+import axios from "axios";
 import { FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
-const WishlistTable = ({ wishlist }) => {
-  const { wishId, wishImg, wishShort_des, wishCat, wishtitle } = wishlist;
+const WishlistTable = ({ wishlist, control, setControl }) => {
+  const { _id, wishId, wishImg, wishShort_des, wishCat, wishtitle } = wishlist;
+
+  const handleDelete = async (_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const result = await axios.delete(
+            `${import.meta.env.VITE_API_URL}/wishlist/${_id}`
+          );
+          if (result.status == 200) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            setControl(!control);
+          }
+        } catch (error) {
+          console.error("Error deleting wishlist item:", error);
+          toast.error("Something went wrong, try again");
+        }
+      }
+    });
+  };
 
   return (
     <div className=" m-2 md:m-0">
@@ -34,7 +69,9 @@ const WishlistTable = ({ wishlist }) => {
               <FaEye className=" text-4xl text-white" />
             </button>
           </Link>
-          <button className=" bg-red-500 p-3 rounded-xl">
+          <button
+            onClick={() => handleDelete(_id)}
+            className=" bg-red-500 p-3 rounded-xl">
             <MdDelete className=" text-4xl text-white" />
           </button>
         </div>
