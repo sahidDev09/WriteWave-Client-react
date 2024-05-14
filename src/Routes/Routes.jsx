@@ -10,6 +10,7 @@ import AddBlogs from "../Pages/Blogs/AddBlogs";
 import FeaturedBlogs from "../Pages/Blogs/FeaturedBlogs";
 import Wishlish from "../Pages/Blogs/Wishlish";
 import PrivateRoutes from "../Private/PrivateRoutes";
+import UpdateBlogs from "../Pages/Blogs/UpdateBlogs";
 
 const router = new createBrowserRouter([
   {
@@ -40,6 +41,17 @@ const router = new createBrowserRouter([
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/blogs/${params.id}`),
       },
+      {
+        path: "/update/:id",
+        element: (
+          <PrivateRoutes>
+            <UpdateBlogs />
+          </PrivateRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/blogs/${params.id}`),
+      },
+
       {
         path: "/allblogs",
         element: <AllBlogs />,

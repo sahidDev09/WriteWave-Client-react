@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Helmet } from "react-helmet";
 import axios from "axios";
@@ -157,11 +157,13 @@ const BlogDetails = () => {
               </div>
 
               {/* add conditional button */}
-
+  
               {user?.email === writerEmail && (
-                <button className=" w-full bg-orange-500 hover:bg-orange-700 p-4 text-white rounded-md my-10">
-                  Update Blog
-                </button>
+                <Link to={`/update/${_id}`}>
+                  <button className=" w-full bg-orange-500 hover:bg-orange-700 p-4 text-white rounded-md my-10">
+                    Update Blog
+                  </button>
+                </Link>
               )}
             </div>
           </div>
