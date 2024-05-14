@@ -19,6 +19,7 @@ const Navbar = () => {
   const handlelogOut = () => {
     toast.error("Logged out");
     logOut();
+    // window.location.href = "/login";
   };
 
   return (
@@ -44,7 +45,7 @@ const Navbar = () => {
           <li className=" hover:text-blue-400">
             <NavLink to="/featuredblogs">Featured Blogs</NavLink>
           </li>
-          <li className=" hover:text-blue-400" >
+          <li className=" hover:text-blue-400">
             <NavLink to="/wishlist">Wishlist</NavLink>
           </li>
         </ul>
