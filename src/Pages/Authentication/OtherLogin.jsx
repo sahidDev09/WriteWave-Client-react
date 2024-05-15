@@ -3,6 +3,7 @@ import googlelogo from "../../assets/google (1).png";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 const OtherLogin = () => {
   const { googleLogin } = useContext(AuthContext);
@@ -13,16 +14,22 @@ const OtherLogin = () => {
   const location = useLocation();
   const from = location?.state || "/";
 
-  const handleSocial = (socialProvider) => {
-    socialProvider().then((result) => {
-      if (result.user) {
-        //navigate route
-        toast.success("Logged in");
-        setTimeout(() => {
-          navigate(from);
-        }, 1000);
-      }
-    });
+  const handleSocial = async (socialProvider) => {
+    try {
+      const result = await socialProvider();
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        {
+          email: result?.user?.email,
+        },
+        { withCredentials: true }
+      );
+
+      toast.success("Loging successful");
+      navigate(from);
+    } catch (error) {
+      toast.error("Oh oh! something went wrong," + error.message);
+    }
   };
 
   return (

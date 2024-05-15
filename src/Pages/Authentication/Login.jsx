@@ -10,6 +10,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import loginLottie from "../../assets/login_lottie.json";
 import Lottie from "lottie-react";
 import OtherLogin from "./OtherLogin";
+import axios from "axios";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
@@ -21,19 +22,37 @@ const Login = () => {
   const location = useLocation();
   const from = location?.state || "/";
 
-  const onSubmit = (data) => {
-    loginUser(data.email, data.password)
-      .then((result) => {
-        if (result.user) {
-          toast.success("Logged in");
-          setTimeout(() => {
-            navigate(from);
-          }, 1000);
-        }
-      })
-      .catch(() => {
-        toast.error("Incorrect email or password!");
-      });
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+
+    try {
+      const loingResult = await loginUser(email, password);
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        {
+          email: loingResult?.user?.email,
+        },
+        { withCredentials: true }
+      );
+
+      toast.success("Login successfull");
+      navigate(from);
+    } catch (error) {
+      toast.error("Something went wrong, Please your email or password!");
+    }
+
+    // loginUser(data.email, data.password)
+    //   .then((result) => {
+    //     if (result.user) {
+    //       toast.success("Logged in");
+    //       setTimeout(() => {
+    //         navigate(from);
+    //       }, 1000);
+    //     }
+    //   })
+    //   .catch(() => {
+    //     toast.error("Incorrect email or password!");
+    //   });
   };
 
   return (
@@ -119,8 +138,6 @@ const Login = () => {
               {/* other methods google  */}
 
               <OtherLogin></OtherLogin>
-
-              
             </div>
 
             {/* redicret register page */}
@@ -140,8 +157,9 @@ const Login = () => {
 
           {/* image container */}
           <div className="loginsideimg hidden lg:inline md:inline ">
-            
-            <Lottie className="w-full h-[650px] rounded-tr-xl rounded-br-xl object-cover object-center bg-blue-200" animationData={loginLottie}></Lottie>
+            <Lottie
+              className="w-full h-[650px] rounded-tr-xl rounded-br-xl object-cover object-center bg-blue-200"
+              animationData={loginLottie}></Lottie>
           </div>
         </div>
         <ToastContainer />

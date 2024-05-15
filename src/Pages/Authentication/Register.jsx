@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet";
 import { AuthContext } from "../../Provider/AuthProvider";
 import regiLottie from "../../assets/regi_lottie.json";
 import Lottie from "lottie-react";
+import axios from "axios";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -21,7 +22,7 @@ const Register = () => {
 
   const from = "/";
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { email, password, image, fullName } = data;
 
     // Password validation
@@ -43,18 +44,22 @@ const Register = () => {
       return;
     }
 
-    createUser(email, password)
-      .then(() => {
-        updateUserProfile(fullName, image).then(() => {
-          toast.success("User created successfully");
-          setTimeout(() => {
-            navigate(from);
-          }, 1000);
-        });
-      })
-      .catch((error) => {
-        toast.error(error.message + "Something went wrong");
-      });
+    try {
+      const result = await createUser(email, password);
+      await updateUserProfile(fullName, image);
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        {
+          email: result?.user?.email,
+        },
+        { withCredentials: true }
+      );
+      console.log(data);
+      toast.success("User created successfully");
+      navigate(from);
+    } catch (error) {
+      toast.error("Something went wrong, Please your email or password!");
+    }
   };
 
   return (
