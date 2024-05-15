@@ -36,6 +36,7 @@ const UpdateBlogs = () => {
     const category = form.category.value;
     const short_description = form.short_description.value;
     const long_description = form.long_description.value;
+    const long_des_count = long_description.length;
     const date = currentDate;
 
     const allAddedInfo = {
@@ -47,6 +48,7 @@ const UpdateBlogs = () => {
       category,
       short_description,
       long_description,
+      long_des_count,
       date,
     };
 

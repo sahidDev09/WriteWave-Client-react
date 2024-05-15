@@ -8,9 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 const AddBlogs = () => {
   const { user } = useContext(AuthContext);
-  const [currentDate, setCurrentDate] = useState(
-    new Date().toLocaleDateString()
-  );
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -24,7 +22,10 @@ const AddBlogs = () => {
     const category = form.category.value;
     const short_description = form.short_description.value;
     const long_description = form.long_description.value;
+    const long_des_count = long_description.length;
     const date = currentDate;
+
+    console.log("from word count" + long_des_count);
 
     const allAddedInfo = {
       writerEmail,
@@ -35,6 +36,7 @@ const AddBlogs = () => {
       category,
       short_description,
       long_description,
+      long_des_count,
       date,
     };
 
