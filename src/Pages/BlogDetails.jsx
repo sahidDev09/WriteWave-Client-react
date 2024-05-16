@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const BlogDetails = () => {
   const blogsDetails = useLoaderData();
@@ -55,7 +56,7 @@ const BlogDetails = () => {
       });
       form.reset();
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -157,7 +158,7 @@ const BlogDetails = () => {
               </div>
 
               {/* add conditional button */}
-  
+
               {user?.email === writerEmail && (
                 <Link to={`/update/${_id}`}>
                   <button className=" w-full bg-orange-500 hover:bg-orange-700 p-4 text-white rounded-md my-10">

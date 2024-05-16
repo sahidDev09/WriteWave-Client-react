@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { IoMdEyeOff } from "react-icons/io";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -54,7 +55,7 @@ const Register = () => {
         },
         { withCredentials: true }
       );
-      console.log(data);
+      
       toast.success("User created successfully");
       navigate(from);
     } catch (error) {

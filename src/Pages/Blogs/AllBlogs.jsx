@@ -4,6 +4,7 @@ import SingleAllBlogs from "./SingleAllBlogs";
 import { useQuery } from "@tanstack/react-query";
 import ReactLoading from "react-loading";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const getData = async () => {
   const { data } = await axios(`${import.meta.env.VITE_API_URL}/blogs`);
@@ -36,16 +37,13 @@ const AllBlogs = () => {
     return toast.error(error.message);
   }
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const { data } = await axios(`${import.meta.env.VITE_API_URL}/blogs`);
-  //     setBlogs(data);
-  //   };
-  //   getData();
-  // }, []);
+
 
   return (
     <div className=" container mx-auto my-10">
+       <Helmet>
+          <title>WriteWave | All blogs</title>
+        </Helmet>
       <div className=" flex items-center gap-5">
         <label className=" rounded-xl input input-bordered flex items-center gap-2 border-2 border-blue-300 bg-slate-100 py-2 md:w-[50%] my-5">
           <input

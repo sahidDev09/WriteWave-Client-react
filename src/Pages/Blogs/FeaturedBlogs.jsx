@@ -2,6 +2,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import MUIDataTable from "mui-datatables";
+import { Helmet } from "react-helmet";
 import ReactLoading from "react-loading";
 import { toast } from "react-toastify";
 
@@ -93,6 +94,9 @@ const FeaturedBlogs = () => {
 
   return (
     <div className="bg-slate-200 min-h-screen flex items-center justify-center">
+       <Helmet>
+          <title>WriteWave | Featured</title>
+        </Helmet>
       <div className="container mx-auto my-10 p-5 rounded-lg">
         <ThemeProvider theme={getMuiTheme}>
           <MUIDataTable

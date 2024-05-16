@@ -6,6 +6,7 @@ import WishlistTable from "./WishlistTable";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import ReactLoading from "react-loading";
+import { Helmet } from "react-helmet";
 
 const getData = async (email) => {
   const { data } = await axios(
@@ -47,6 +48,9 @@ const Wishlish = () => {
 
   return (
     <div>
+       <Helmet>
+          <title>WriteWave | Wishlist</title>
+        </Helmet>
       {wish.map((wishItem, index) => (
         <WishlistTable
           key={index}

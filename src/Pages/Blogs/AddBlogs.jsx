@@ -5,6 +5,7 @@ import { data } from "autoprefixer";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const AddBlogs = () => {
   const { user } = useContext(AuthContext);
@@ -24,8 +25,6 @@ const AddBlogs = () => {
     const long_description = form.long_description.value;
     const long_des_count = long_description.length;
     const date = currentDate;
-
-    console.log("from word count" + long_des_count);
 
     const allAddedInfo = {
       writerEmail,
@@ -50,7 +49,6 @@ const AddBlogs = () => {
         `${import.meta.env.VITE_API_URL}/blogs`,
         allAddedInfo
       );
-      console.log(data);
       Swal.fire({
         title: "Published",
         text: "Your Blogs Published successfully!",
@@ -68,6 +66,9 @@ const AddBlogs = () => {
 
   return (
     <section className="max-w-4xl p-6 mx-auto bg-slate-200 my-10 rounded-md shadow-md dark:bg-gray-800">
+       <Helmet>
+          <title>WriteWave | Add blogs</title>
+        </Helmet>
       <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
         Create a new Blog
       </h2>

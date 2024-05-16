@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useLoaderData } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const UpdateBlogs = () => {
   const { user } = useContext(AuthContext);
@@ -62,7 +63,6 @@ const UpdateBlogs = () => {
         `${import.meta.env.VITE_API_URL}/blogs/${_id}`,
         allAddedInfo
       );
-      console.log(data);
       Swal.fire({
         title: "Published",
         text: "Your Blogs Published successfully!",
@@ -80,6 +80,9 @@ const UpdateBlogs = () => {
 
   return (
     <section className="max-w-4xl p-6 mx-auto bg-slate-200 my-10 rounded-md shadow-md dark:bg-gray-800">
+      <Helmet>
+          <title>WriteWave | Update</title>
+        </Helmet>
       <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
         Update Blog
       </h2>

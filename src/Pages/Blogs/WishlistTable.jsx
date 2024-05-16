@@ -34,7 +34,6 @@ const WishlistTable = ({ wishlist, refetch }) => {
             refetch();
           }
         } catch (error) {
-          console.error("Error deleting wishlist item:", error);
           toast.error("Something went wrong, try again");
         }
       }
