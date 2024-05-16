@@ -1,26 +1,50 @@
 import { createTheme, ThemeProvider } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import MUIDataTable from "mui-datatables";
-import { useEffect, useState } from "react";
+import ReactLoading from "react-loading";
+import { toast } from "react-toastify";
+
+const getData = async () => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_API_URL}/blogs/table`
+  );
+
+  const dataSerial = data.map((item, index) => ({
+    ...item,
+    serial: index + 1,
+  }));
+
+  return dataSerial;
+};
 
 const FeaturedBlogs = () => {
-  const [tableData, setTableData] = useState([]);
+  const {
+    data = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryFn: getData,
+    queryKey: "table",
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/blogs/table`
-      );
+  if (isLoading) {
+    return (
+      <ReactLoading
+        type="bars"
+        color="black"
+        height={"5%"}
+        className="flex mx-auto mt-20"
+        width={"5%"}
+      />
+    );
+  }
 
-      const dataSerial = data.map((item, index) => ({
-        ...item,
-        serial: index + 1,
-      }));
-
-      setTableData(dataSerial);
-    };
-    getData();
-  }, []);
+  if (isError) {
+    toast.error(error.message);
+    return <div>Error: {error.message}</div>;
+  }
 
   const columns = [
     {
@@ -29,20 +53,19 @@ const FeaturedBlogs = () => {
     },
     {
       name: "title",
+      label: "Title",
     },
-
     {
       name: "long_des_count",
       label: "Words",
       options: {
         customBodyRender: (value) => (
-          <p className=" py-2 px-5 bg-blue-200 text-blue-700 inline-block rounded-full">
+          <p className="py-2 px-5 bg-blue-200 text-blue-700 inline-block rounded-full">
             {value}
           </p>
         ),
       },
     },
-
     {
       name: "writerName",
       label: "Owner",
@@ -52,14 +75,14 @@ const FeaturedBlogs = () => {
       label: "Profile",
       options: {
         customBodyRender: (value) => (
-          <img src={value} className=" w-12 h-12 rounded-full"></img>
+          <img src={value} className="w-12 h-12 rounded-full" alt="Profile" />
         ),
       },
     },
   ];
 
   const options = {
-    selectableRows: false,
+    selectableRows: "none",
     elevation: 0,
   };
 
@@ -69,12 +92,12 @@ const FeaturedBlogs = () => {
     });
 
   return (
-    <div className=" bg-slate-200 min-h-screen flex items-center justify-center">
-      <div className="container bg-slate-400 mx-auto my-10">
+    <div className="bg-slate-200 min-h-screen flex items-center justify-center">
+      <div className="container mx-auto my-10 p-5 rounded-lg">
         <ThemeProvider theme={getMuiTheme}>
           <MUIDataTable
             title={"Featured Blogs"}
-            data={tableData}
+            data={data}
             columns={columns}
             options={options}
           />

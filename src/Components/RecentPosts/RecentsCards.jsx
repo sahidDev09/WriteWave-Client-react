@@ -1,22 +1,43 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
-
-import { useEffect, useState } from "react";
 import axios from "axios";
 import SingleAllBlogs from "../../Pages/Blogs/SingleAllBlogs";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import ReactLoading from "react-loading";
+
+const getData = async () => {
+  const { data } = await axios(`${import.meta.env.VITE_API_URL}/blogs`);
+  return data;
+};
 
 const RecentsCards = () => {
-  const [blogs, setBlogs] = useState([]);
+  const {
+    data: blogs = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryFn: () => getData(),
+    queryKey: "recent",
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios(`${import.meta.env.VITE_API_URL}/blogs`);
-      setBlogs(data);
-    };
-    getData();
-  }, []);
+  if (isLoading) {
+    return (
+      <ReactLoading
+        type="bars"
+        color="black"
+        height={"5%"}
+        className="flex mx-auto mt-20"
+        width={"5%"}></ReactLoading>
+    );
+  }
+
+  if (isError || error) {
+    return toast.error(error.message);
+  }
 
   return (
     <motion.div

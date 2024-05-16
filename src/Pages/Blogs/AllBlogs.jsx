@@ -1,17 +1,48 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+
 import SingleAllBlogs from "./SingleAllBlogs";
+import { useQuery } from "@tanstack/react-query";
+import ReactLoading from "react-loading";
+import { toast } from "react-toastify";
+
+const getData = async () => {
+  const { data } = await axios(`${import.meta.env.VITE_API_URL}/blogs`);
+  return data;
+};
 
 const AllBlogs = () => {
-  const [blogs, setBlogs] = useState([]);
+  const {
+    data: blogs = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryFn: () => getData(),
+    queryKey: "blogs",
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios(`${import.meta.env.VITE_API_URL}/blogs`);
-      setBlogs(data);
-    };
-    getData();
-  }, []);
+  if (isLoading) {
+    return (
+      <ReactLoading
+        type="bars"
+        color="black"
+        height={"5%"}
+        className="flex mx-auto mt-20"
+        width={"5%"}></ReactLoading>
+    );
+  }
+
+  if (isError || error) {
+    return toast.error(error.message);
+  }
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const { data } = await axios(`${import.meta.env.VITE_API_URL}/blogs`);
+  //     setBlogs(data);
+  //   };
+  //   getData();
+  // }, []);
 
   return (
     <div className=" container mx-auto my-10">
@@ -35,7 +66,10 @@ const AllBlogs = () => {
           </svg>
         </label>
 
-        <select name="category" id="category" className="border p-2 py-4 rounded-md bg-green-600 text-white">
+        <select
+          name="category"
+          id="category"
+          className="border p-2 py-4 rounded-md bg-green-600 text-white">
           <option selected disabled>
             Sort by
           </option>

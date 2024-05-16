@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
-const WishlistTable = ({ wishlist, control, setControl }) => {
+const WishlistTable = ({ wishlist, refetch }) => {
   const { _id, wishId, wishImg, wishShort_des, wishCat, wishtitle } = wishlist;
 
   const handleDelete = async (_id) => {
@@ -31,7 +31,7 @@ const WishlistTable = ({ wishlist, control, setControl }) => {
               text: "Your file has been deleted.",
               icon: "success",
             });
-            setControl(!control);
+            refetch();
           }
         } catch (error) {
           console.error("Error deleting wishlist item:", error);
