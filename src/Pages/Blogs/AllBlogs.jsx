@@ -1,5 +1,5 @@
+import { useState } from "react";
 import axios from "axios";
-
 import SingleAllBlogs from "./SingleAllBlogs";
 import { useQuery } from "@tanstack/react-query";
 import ReactLoading from "react-loading";
@@ -12,6 +12,9 @@ const getData = async () => {
 };
 
 const AllBlogs = () => {
+  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const {
     data: blogs = [],
     isLoading,
@@ -29,7 +32,8 @@ const AllBlogs = () => {
         color="black"
         height={"5%"}
         className="flex mx-auto mt-20"
-        width={"5%"}></ReactLoading>
+        width={"5%"}
+      />
     );
   }
 
@@ -37,19 +41,39 @@ const AllBlogs = () => {
     return toast.error(error.message);
   }
 
+  //code for search
 
+  const filteredBlogs = blogs.filter((blog) =>
+    blog.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  // code for filter by categoriesse
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  const filterbyCat = selectedCategory
+    ? filteredBlogs.filter((blog) => blog.category === selectedCategory)
+    : filteredBlogs;
 
   return (
     <div className=" container mx-auto my-10">
-       <Helmet>
-          <title>WriteWave | All blogs</title>
-        </Helmet>
+      <Helmet>
+        <title>WriteWave | All blogs</title>
+      </Helmet>
       <div className=" flex items-center gap-5">
         <label className=" rounded-xl input input-bordered flex items-center gap-2 border-2 border-blue-300 bg-slate-100 py-2 md:w-[50%] my-5">
           <input
             type="text"
             className="grow px-2 outline-none bg-transparent"
             placeholder="Search"
+            value={search}
+            onChange={handleSearchChange}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -67,10 +91,10 @@ const AllBlogs = () => {
         <select
           name="category"
           id="category"
-          className="border p-2 py-4 rounded-md bg-green-600 text-white">
-          <option selected disabled>
-            Sort by
-          </option>
+          className="border p-2 py-4 rounded-md bg-green-600 text-white"
+          value={selectedCategory}
+          onChange={handleCategoryChange}>
+          <option value="">Filter By</option>
           <option value="Study">Study</option>
           <option value="Traveling">Traveling</option>
           <option value="News">News</option>
@@ -80,7 +104,7 @@ const AllBlogs = () => {
         </select>
       </div>
       <div className=" grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {blogs.map((blog, index) => (
+        {filterbyCat.map((blog, index) => (
           <SingleAllBlogs key={index} blogs={blog}></SingleAllBlogs>
         ))}
       </div>
