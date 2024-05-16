@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -41,18 +42,7 @@ const Login = () => {
       toast.error("Something went wrong, Please your email or password!");
     }
 
-    // loginUser(data.email, data.password)
-    //   .then((result) => {
-    //     if (result.user) {
-    //       toast.success("Logged in");
-    //       setTimeout(() => {
-    //         navigate(from);
-    //       }, 1000);
-    //     }
-    //   })
-    //   .catch(() => {
-    //     toast.error("Incorrect email or password!");
-    //   });
+
   };
 
   return (

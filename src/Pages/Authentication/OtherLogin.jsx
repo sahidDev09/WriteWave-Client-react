@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from "react";
 import googlelogo from "../../assets/google (1).png";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -29,6 +30,7 @@ const OtherLogin = () => {
       navigate(from);
     } catch (error) {
       toast.error("Oh oh! something went wrong," + error.message);
+      return;
     }
   };
 
