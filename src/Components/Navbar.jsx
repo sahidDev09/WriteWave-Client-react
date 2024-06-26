@@ -23,13 +23,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center container mx-auto p-2 md:p-0">
+    <div className="flex justify-between items-center container mx-auto p-2 md:p-0 my-4">
       <div>
-        <img
-          className=" md:w-56 w-32"
-          src="https://i.ibb.co/Kh3jbRw/SCR-20240510-nyxu.png"
-          alt=""
-        />
+        <h1 className=" text-4xl font-bold italic">WriteWave</h1>
       </div>
       <div className="mobile-nav lg:static absolute lg:bg-transparent bg-gray-200 md:min-h-fit min-h-[50vh]  left-0 top-[-100%] w-full lg:w-auto items-center lg:px-0 px-5 pt-10 lg:p-0">
         <ul className="flex lg:flex-row flex-col lg:gap-8 gap-8 text-md ">
