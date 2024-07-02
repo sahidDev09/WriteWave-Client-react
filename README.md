@@ -58,7 +58,7 @@ The source code can be found on GitHub: [WriteWave Repository](https://github.co
 
 ## Contact
 
-If you have any questions or suggestions, feel free to reach out to the project maintainer at sahidDev09@example.com.
+If you have any questions or suggestions, feel free to reach out to the project maintainer at iamsahidofficial99@gmail.com.
 
 ---
 
